@@ -5,9 +5,9 @@ const sqlite3 = require("sqlite3").verbose();
 const cloudinary = require("cloudinary").v2;
 const cors = require("cors");
 const path = require("path");
+const PORT = process.env.PORT || 3000;
 
 const app = express();
-const PORT = 3000;
 
 // Middleware
 app.use(cors());
@@ -72,4 +72,4 @@ app.post("/upload", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
