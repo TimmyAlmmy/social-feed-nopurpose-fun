@@ -1,6 +1,38 @@
-body { font-family: Arial, sans-serif; margin: 20px; }
-h1 { text-align: center; }
-.post { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; text-align: center; }
-form { margin-bottom: 20px; display: flex; flex-direction: column; gap: 5px; max-width: 400px; margin-left: auto; margin-right: auto; }
-input, button { padding: 5px; font-size: 16px; }
-button { cursor: pointer; }
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+input, textarea, button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
+
+.post {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.post img {
+  max-width: 100%;
+  margin-top: 10px;
+  border-radius: 5px;
+}

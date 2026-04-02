@@ -77,24 +77,23 @@ app.get("/posts", (req, res) => {
 
 // POST a new post
 app.post("/upload", async (req, res) => {
+  console.log("POST /upload called");
+  console.log("Body:", req.body);
+  console.log("Files:", req.files);
+
+  if (!req.files || !req.files.image) {
+    console.log("No image found!");
+    return res.json({ success: false, error: "No file uploaded" });
+  }
+
   try {
     const { title, description } = req.body;
-    const file = req.files?.image;
-    if (!file) return res.json({ success: false, error: "No file uploaded" });
-
-    // Upload to Cloudinary
+    const file = req.files.image;
     const result = await cloudinary.uploader.upload(file.tempFilePath);
-    const imageUrl = result.secure_url;
-
-    // Insert into DB
-    db.prepare(`
-      INSERT INTO posts (title, description, image)
-      VALUES (?, ?, ?)
-    `).run(title, description, imageUrl);
-
-    // Delete temp file
+    console.log("Cloudinary upload success:", result.secure_url);
+    db.prepare(`INSERT INTO posts (title, description, image) VALUES (?, ?, ?)`)
+      .run(title, description, result.secure_url);
     fs.unlinkSync(file.tempFilePath);
-
     res.json({ success: true });
   } catch (err) {
     console.error(err);
