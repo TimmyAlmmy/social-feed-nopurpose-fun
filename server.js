@@ -18,10 +18,15 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Cloudinary config
 cloudinary.config({
-  cloud_name: "dj2dnbd5s",
-  api_key: "943467195562979",
-  api_secret: "1j43z7uxmSw5XvY5lF48OpTtDBQ"
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET
 });
+
+if (!process.env.CLOUDINARY_NAME || !process.env.CLOUDINARY_KEY || !process.env.CLOUDINARY_SECRET) {
+  console.error("Cloudinary keys are missing!");
+  process.exit(1); // Stops app to prevent crashing later
+}
 
 // Database
 const db = new sqlite3.Database("database.db");
